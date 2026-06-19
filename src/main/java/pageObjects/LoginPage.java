@@ -17,6 +17,27 @@ public class LoginPage extends BasePage {
     @FindBy(css = ("button[class='btn-register']"))
     private WebElement registrationButton;
 
+    @FindBy(css = "input[name='username']")
+    private WebElement usernameInput;
+
+    @FindBy(css = "input[name='password']")
+    private WebElement passwordInput;
+
+    @FindBy(css = "button[type='submit']")
+    private WebElement loginButton;
+
+    public void enterUsername(String username) {
+        usernameInput.sendKeys(username);
+    }
+
+    public void enterPassword(String password) {
+        passwordInput.sendKeys(password);
+    }
+
+    public void clickLoginButton() {
+        loginButton.click();
+    }
+
     public void clickRegisterButton() {
         registrationButton.click();
     }

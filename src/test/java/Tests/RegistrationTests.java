@@ -7,7 +7,7 @@ import utils.Waiters;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RegistrationTest extends BaseTest {
+public class RegistrationTests extends BaseTest {
     @Test
     public void positiveRegistrationTest() {
         LoginPage loginPage = new LoginPage(driver);
