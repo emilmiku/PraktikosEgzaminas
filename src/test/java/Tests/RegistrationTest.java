@@ -7,22 +7,29 @@ import utils.Waiters;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RegistrationTests extends BaseTest {
+public class RegistrationTest extends BaseTest {
     @Test
     public void positiveRegistrationTest() {
+
         LoginPage loginPage = new LoginPage(driver);
         loginPage.clickRegisterButton();
 
-        RegistrationPage registrationPage = new RegistrationPage(driver);
+        Waiters waiters = new Waiters(driver);
+        waiters.waitUntilUrlContains("register");
 
-        String uniqueUsername = "user" + System.currentTimeMillis(); // sugeneruojam unikalu uername
-        String uniqueEmail = "email" + System.currentTimeMillis() + "@test.com"; // unikalus passsword
+        RegistrationPage registrationPage =
+                new RegistrationPage(driver);
+
+        String uniqueUsername = "user" + System.currentTimeMillis();
+        String uniqueEmail = "email" + System.currentTimeMillis() + "@test.com";
 
         registrationPage.enterUsername(uniqueUsername);
         registrationPage.enterEmail(uniqueEmail);
         registrationPage.enterPassword("Test123!");
         registrationPage.enterConfirmPassword("Test123!");
         registrationPage.clickRegisterButton();
+
+        waiters.waitUntilUrlContains("login");
 
         assertTrue(driver.getCurrentUrl().contains("login"));
     }

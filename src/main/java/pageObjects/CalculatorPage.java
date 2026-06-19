@@ -23,7 +23,7 @@ public class CalculatorPage extends BasePage {
     @FindBy(css = "button.btn-calculate[type='submit']")
     private WebElement calculateButton;
 
-    @FindBy(xpath = "//button[text()='Calculations']")
+    @FindBy(css = "form[action='/numbers'] button")
     private WebElement calculationsButton;
 
     public void enterFirstNumber(String number) {
