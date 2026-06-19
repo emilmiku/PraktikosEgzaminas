@@ -1,5 +1,6 @@
 package Tests;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pageObjects.CalculationHistoryPage;
 import pageObjects.CalculatorPage;
@@ -11,6 +12,7 @@ import utils.Waiters;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("Edit")
 public class EditCalculationTest extends BaseTest {
 
     @Test
@@ -57,7 +59,6 @@ public class EditCalculationTest extends BaseTest {
     public void negativeEditCalculationTest() {
 
         LoginPage loginPage = new LoginPage(driver);
-
         loginPage.enterUsername(TestData.VALID_USERNAME);
         loginPage.enterPassword(TestData.VALID_PASSWORD);
         loginPage.clickLoginButton();
@@ -66,20 +67,18 @@ public class EditCalculationTest extends BaseTest {
         waiters.waitUntilUrlContains("calculator");
 
         CalculatorPage calculatorPage = new CalculatorPage(driver);
-
-        calculatorPage.enterFirstNumber("10");
+        calculatorPage.enterFirstNumber("777777");
         calculatorPage.enterSecondNumber("5");
         calculatorPage.selectOperation("Addition");
         calculatorPage.clickCalculateButton();
 
         calculatorPage.clickCalculationsButton();
-
         waiters.waitUntilUrlContains("numbers");
 
         CalculationHistoryPage historyPage =
                 new CalculationHistoryPage(driver);
 
-        historyPage.clickLastEditButton();
+        historyPage.clickEditButtonByFirstNumber("777777");
 
         waiters.waitUntilUrlContains("update");
 
@@ -89,8 +88,6 @@ public class EditCalculationTest extends BaseTest {
         editPage.clearFirstNumber();
         editPage.clickUpdateButton();
 
-        // turi likti update puslapyje,
-        // nes required laukas tuščias
-        assertTrue(driver.getCurrentUrl().contains("update"));
+        assertFalse(editPage.getFirstNumberValidationMessage().isEmpty());
     }
 }

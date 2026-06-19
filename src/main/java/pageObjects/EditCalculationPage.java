@@ -28,4 +28,8 @@ public class EditCalculationPage extends BasePage {
     public void clearFirstNumber() {
         firstNumberInput.clear();
     }
+
+    public String getFirstNumberValidationMessage() {
+        return firstNumberInput.getAttribute("validationMessage");
+    }
 }

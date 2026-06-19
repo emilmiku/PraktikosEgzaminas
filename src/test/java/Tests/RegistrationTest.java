@@ -1,5 +1,6 @@
 package Tests;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pageObjects.LoginPage;
 import pageObjects.RegistrationPage;
@@ -7,6 +8,7 @@ import utils.Waiters;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("Registration")
 public class RegistrationTest extends BaseTest {
     @Test
     public void positiveRegistrationTest() {
@@ -40,9 +42,11 @@ public class RegistrationTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.clickRegisterButton();
 
+        Waiters waiters = new Waiters(driver);
+        waiters.waitUntilUrlContains("register");
+
         RegistrationPage registrationPage = new RegistrationPage(driver);
 
-        Waiters waiters = new Waiters(driver);
         waiters.waitUntilElementVisible(
                 registrationPage.getUsernameInput()
         );

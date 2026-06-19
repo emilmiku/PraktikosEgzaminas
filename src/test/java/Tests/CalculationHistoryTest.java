@@ -1,5 +1,6 @@
 package Tests;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pageObjects.CalculationHistoryPage;
 import pageObjects.CalculatorPage;
@@ -10,6 +11,7 @@ import utils.Waiters;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("History")
 public class CalculationHistoryTest extends BaseTest {
 
     @Test

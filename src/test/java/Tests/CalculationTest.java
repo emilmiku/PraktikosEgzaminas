@@ -1,5 +1,6 @@
 package Tests;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pageObjects.CalculatorPage;
 import pageObjects.LoginPage;
@@ -8,6 +9,7 @@ import utils.Waiters;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("Calculation")
 public class CalculationTest extends BaseTest {
 
     @Test

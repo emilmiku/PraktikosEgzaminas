@@ -1,5 +1,6 @@
 package Tests;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pageObjects.CalculationHistoryPage;
 import pageObjects.CalculatorPage;
@@ -10,12 +11,14 @@ import utils.Waiters;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
+@Tag("Delete")
 public class DeleteCalculationTest extends BaseTest {
 
     @Test
     public void positiveDeleteCalculationTest() {
 
-        String firstNumber = "987654";
+        String firstNumber = String.valueOf((int) (System.currentTimeMillis() % 100000));
 
         LoginPage loginPage = new LoginPage(driver);
         loginPage.enterUsername(TestData.VALID_USERNAME);
@@ -26,19 +29,25 @@ public class DeleteCalculationTest extends BaseTest {
         waiters.waitUntilUrlContains("calculator");
 
         CalculatorPage calculatorPage = new CalculatorPage(driver);
+
         calculatorPage.enterFirstNumber(firstNumber);
         calculatorPage.enterSecondNumber("222");
         calculatorPage.selectOperation("Addition");
         calculatorPage.clickCalculateButton();
 
+        calculatorPage = new CalculatorPage(driver);
         calculatorPage.clickCalculationsButton();
+
         waiters.waitUntilUrlContains("numbers");
 
         CalculationHistoryPage historyPage =
                 new CalculationHistoryPage(driver);
 
-        historyPage.clickLastDeleteButton();
+        historyPage.clickDeleteButtonByFirstNumber(firstNumber);
+
         driver.switchTo().alert().accept();
+
+        driver.navigate().refresh();
 
         assertFalse(driver.getPageSource().contains(firstNumber));
     }
@@ -46,6 +55,8 @@ public class DeleteCalculationTest extends BaseTest {
     @Test
     public void negativeDeleteCalculationTest() {
 
+        String firstNumber = "333";
+
         LoginPage loginPage = new LoginPage(driver);
 
         loginPage.enterUsername(TestData.VALID_USERNAME);
@@ -57,22 +68,21 @@ public class DeleteCalculationTest extends BaseTest {
 
         CalculatorPage calculatorPage = new CalculatorPage(driver);
 
-        calculatorPage.enterFirstNumber("333");
+        calculatorPage.enterFirstNumber(firstNumber);
         calculatorPage.enterSecondNumber("444");
         calculatorPage.selectOperation("Addition");
         calculatorPage.clickCalculateButton();
 
         calculatorPage.clickCalculationsButton();
-
         waiters.waitUntilUrlContains("numbers");
 
         CalculationHistoryPage historyPage =
                 new CalculationHistoryPage(driver);
 
-        historyPage.clickLastDeleteButton();
+        historyPage.clickDeleteButtonByFirstNumber(firstNumber);
 
         driver.switchTo().alert().dismiss();
 
-        assertTrue(driver.getPageSource().contains("333"));
+        assertTrue(driver.getPageSource().contains(firstNumber));
     }
 }

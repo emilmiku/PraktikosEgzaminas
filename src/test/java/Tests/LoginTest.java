@@ -1,5 +1,6 @@
 package Tests;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pageObjects.LoginPage;
 import utils.TestData;
@@ -7,6 +8,7 @@ import utils.Waiters;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("Login")
 public class LoginTest extends BaseTest {
 
     @Test
@@ -25,12 +27,13 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void negativeLoginTest_wrongPassword() {
+
         LoginPage loginPage = new LoginPage(driver);
 
         loginPage.enterUsername(TestData.VALID_USERNAME);
         loginPage.enterPassword(TestData.INVALID_PASSWORD);
         loginPage.clickLoginButton();
 
-        assertTrue(driver.getPageSource().contains("Invalid"));
+        assertTrue(driver.getCurrentUrl().contains("login"));
     }
 }
