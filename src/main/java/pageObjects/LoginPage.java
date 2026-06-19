@@ -14,7 +14,7 @@ public class LoginPage extends BasePage {
 
     }
 
-    @FindBy(css("button[class='btn-register']"))
+    @FindBy(css = ("button[class='btn-register']"))
     private WebElement registrationButton;
 
     public void clickRegisterButton() {

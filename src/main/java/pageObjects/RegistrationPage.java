@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class RegistrationPage extends BasePage {
 
-  public RegistrationPage(WebDriver) {
+  public RegistrationPage(WebDriver driver) {
       super(driver);
   }
 
@@ -24,6 +24,10 @@ public class RegistrationPage extends BasePage {
 
   @FindBy(css = "button[class='btn-login'][type='submit']")
     private WebElement registerSubmitButton;
+
+    public WebElement getUsernameInput() {
+        return usernameInput;
+    }
 
     public void enterUsername(String username) {
         usernameInput.sendKeys(username);
